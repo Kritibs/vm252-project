@@ -1,0 +1,15 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+*.class
+build
+/vm252-project.iml
+/out/
+*.zip
+*.swp
+*.tex
+*.attach*
+*uml
+/Phase10/Presentation.org

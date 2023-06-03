@@ -1,0 +1,51 @@
+#+TITLE: Group 1: Phase 9
+
+* Repository Information
+
+Below you will find our repository URL, hosted on GitHub, as well as the revision number and date of our final commit for this phase of the project.
+
+| URL      | https://github.com/mertad01/vm252-project |
+| Revision | aa5f806a99a8abbfa219c18dd08303ad50d9aac2  |
+| Date     | 2021-12-08T03:57:10-06:00                 |
+
+* Progress Report
+
+Substantial progress was made to cleaning up our design. Our initial plan to display different memory views/tables using buttons was changed to instead use JTabbedPane to create tabs for different views of the memory. This is a much better way and solves issues relating to creating and destroying different views that we had. Currently we have the single-byte hex and two-byte hex representations of memory. These different views use different table models and cell renderers tailored to their needs. This lead us to flesh out our class hierarchy and have more of our memory view classes share methods and features by extending abstract classes.
+
+We changed from using a text entry for breakpoints to instead using middle clicking on memory cells using a mouse, and migrated the text field to allow breakpoints by source-line number. This works well using the tabbed memory views since they access the information independently and our renderer can handle displaying the breakpoints automatically. Implementing the source-line number breakpoint features, the =BL= command, required using the object files data and storing it differently which took re-learning some of what was covered early in the project.
+
+We spent a large amount of time working on the MI/OI commands but in the end decided to focus on getting other optional features implemented. There were issues integral to our design and the value proposition of recreating it was not worth solving the issues. This was wise since it let many other features get polished and completed. The only feature left in our plan to complete is the ability to set two-byte pairs using signed integer values (=amd= =ma= =sd=). This is definitely possible but we have yet to figure out how we would want to do it without creating an entirely new view.
+
+* Work Log
+** Michael Musa
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 12/02/21 | 08:00pm-10:00pm |
+| 12/03/21 | 05:00pm-09:00pm |
+| 12/04/21 | 11:00am-12:30pm |
+| 12/05/21 | 06:00pm-07:30pm |
+| 12/06/21 | 11:30am-12:30pm |
+|----------+-----------------|
+| Total:   | ~10             |
+
+** Adam Mertzenich
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 12/02/21 | 08:00pm-10:00pm |
+| 12/03/21 | 05:00pm-09:00pm |
+| 12/04/21 | 11:00am-05:00pm |
+| 12/05/21 | 06:30pm-11:30pm |
+| 12/06/21 | 11:30am-02:30pm |
+| 12/06/21 | 05:00pm-11:00pm |
+| 12/07/21 | 06:30pm-10:00pm |
+|----------+-----------------|
+| Total:   | ~30             |
+
+** Kritib Bhattarai
+| Date   | Hours Worked |
+|--------+--------------|
+|12/04/21|8:00pm-10:00pm|
+|12/05/22|10:0pm-12:00am|              
+|12/06/22|08am-10am     |              
+|--------+--------------|
+| Total: |   ~6         |

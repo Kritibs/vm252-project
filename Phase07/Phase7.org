@@ -1,0 +1,47 @@
+#+TITLE: Group 1: Phase 7
+
+* Repository Information
+
+Below you will find our repository URL, hosted on GitHub, as well as the revision number and date of our final commit for this phase of the project.
+
+| URL      | https://github.com/mertad01/vm252-project |
+| Revision | 2f9c8d89b9d7d76edc331e047cea4979fb7da348  |
+| Date     | 2021-11-23T16:05:46-06:00                 |
+
+* Progress Report
+
+This phase of the project went well. Thanks to our efforts in the previous stage of the project we already had the running, pausing, continuing, and single-step features working. We also had previously implemented a load program menu which loaded a new object-file into the vm252 memory. Having this groundwork laid already made the rest progress smoothly. Because much of the work had already been done most of the work done was cleaning up code after getting the final requirements fulfilled.
+
+To display the contents of memory as the program runs we used a JTable. JTables have TableModels which represent the data stored within them. We wrote an extended AbstractTableModel which represents our virtual machines data within the table. Each cell represents a byte of memory as a hex value converted to a string. Using the AbstractTableModel will allow us to further extend the functionality of our program by changing how the data is displayed, which will be useful for implementing future debugging commands.
+
+The only serious issue encountered, and solved, was making sure the table was always up-to-date. Because reinitialize the program would recreate the program memory from scratch our table model would be showing outdated and destroyed bytes. We had to change how opening new files worked to not create a whole new byte[] array. The table also needed to be updated automatically when changes were made which was solved by having our ProgramFrame execute vm252TableModel.fireTableDataChanged() when it observes that the VirtualMachine252 model has changed.
+
+
+* Work Log
+** Michael Musa
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 11/20/21 | 11:00am-01:00pm |
+| 11/20/21 | 10:00pm-11:00pm |
+| 11/21/21 | 09:00am-12:00am |
+|----------+-----------------|
+| Total:   | ~6              |
+
+** Adam Mertzenich
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 11/20/21 | 11:30am-04:30pm |
+| 11/20/21 | 07:00pm-11:30pm |
+| 11/21/21 | 09:00am-09:30am |
+| 11/21/21 | 02:00pm-05:00pm |
+|----------+-----------------|
+| Total:   | ~13             |
+
+** Kritib Bhattarai
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 11/19/21 | 08:00am-10:00am |
+| 11/20/21 | 12:00pm-02:00pm |
+| 11/21/21 | 08:00am-10:00am |
+|----------+-----------------|
+| Total:   | ~6              |

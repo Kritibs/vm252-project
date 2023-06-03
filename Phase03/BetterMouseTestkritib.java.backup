@@ -1,0 +1,321 @@
+//
+// This example program was adapted from an example program provided with
+//
+//     Horstmann & Cornell
+//     _Core Java, Volume 1 - Fundamentals_
+//     Prentice Hall
+//
+
+
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.*;
+import javax.swing.*;
+
+
+public class BetterMouseTest
+{
+
+    public static void main(String [] commandLineArguments)
+    {
+
+        EventQueue.invokeLater(
+            () ->
+                {
+
+                    edu.luther.cs252.group1.viewcontroller.ProgramFrame frame = new edu.luther.cs252.group1.viewcontroller.ProgramFrame();
+
+                    frame.setTitle("Better Mouse Test");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
+
+                    }
+            );
+
+        }
+
+    }
+
+
+class edu.luther.cs252.group1.viewcontroller.ProgramFrame extends JFrame
+{
+
+    public edu.luther.cs252.group1.viewcontroller.ProgramFrame()
+    {
+
+        add(new MouseComponent());
+        pack();
+
+        }
+
+    }
+
+
+class MouseComponent extends JComponent
+{
+
+    private static final int OUR_DEFAULT_WIDTH = 300;
+    private static final int OUR_DEFAULT_HEIGHT = 300;
+
+    private static final int OUR_SQUARE_SIDE_LENGTH = 30;
+
+    private ArrayList< Rectangle2D > mySquares;
+    private Rectangle2D myCurrentSquare;
+
+    private ArrayList< Rectangle2D > squares()
+    {
+
+        return mySquares;
+
+        }
+
+    private Rectangle2D currentSquare()
+    {
+
+        return myCurrentSquare;
+
+        }
+
+    private void setSquares(ArrayList< Rectangle2D > other)
+    {
+
+        mySquares = other;
+
+        }
+
+    private void setCurrentSquare(Rectangle2D other)
+    {
+
+        myCurrentSquare = other;
+
+        }
+
+    public MouseComponent()
+    {
+
+        setSquares(new ArrayList< Rectangle2D >());
+        setCurrentSquare(null);
+
+        addMouseListener(new MouseHandler());
+        addMouseMotionListener(new MouseMotionHandler());
+
+        }
+
+    @Override
+    public Dimension getPreferredSize()
+    {
+
+        return new Dimension(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+
+        }
+
+
+    @Override
+    public void paintComponent(Graphics canvas)
+    {
+
+        for (Rectangle2D squareOnCanvas : squares())
+            ((Graphics2D) canvas).draw(squareOnCanvas);
+
+        }
+
+    public Rectangle2D findSquareContainingPoint(Point2D clickPoint)
+    {
+        int squareNumber;
+        for (squareNumber = 0;
+                squareNumber < squares().size()
+                    && ! squares().get(squareNumber).contains(clickPoint);
+                ++ squareNumber)
+                //
+                // inv:
+                //     No square in squares()[0 ... squareNumber - 1] spatially contains clickpoint
+                //
+            ; // do nothing
+
+        return squareNumber < squares().size() ? squares().get(squareNumber) : null;
+
+        }
+
+    public void placeAdditionalSquare(Point2D clickPoint)
+    {
+
+        setCurrentSquare(
+            new Rectangle2D.Double(
+                clickPoint.getX() - OUR_SQUARE_SIDE_LENGTH / 2,
+                clickPoint.getY() - OUR_SQUARE_SIDE_LENGTH / 2,
+                OUR_SQUARE_SIDE_LENGTH,
+                OUR_SQUARE_SIDE_LENGTH
+                )
+            );
+        //since method findSquareContainingPoint finds squares from the beginning of the arraylist,
+        //I added all the squares in the beginning of arraylist squares
+        squares().add(0,currentSquare());
+
+        repaint();
+
+        System.out.println(
+            "New square placed at (" + clickPoint.getX() +", " + clickPoint.getY() + ")"
+            );
+
+        }
+
+    public void removeExistingSquare(Rectangle2D existingSquare)
+    {
+
+        if (existingSquare != null) {
+
+            if (existingSquare == currentSquare())
+                setCurrentSquare(null);
+
+            squares().remove(existingSquare);
+
+            repaint();
+
+            }
+
+        }
+
+
+    private class MouseHandler extends MouseAdapter
+    {
+        int myPresses = 0;
+        int myClicks = 0;
+        //initializing a private boolean field existingSquare to false inorder to check if there are existing squares before mouse if pressed
+        private static boolean existingSquare = false;
+
+        @Override
+        public void mousePressed(MouseEvent event)
+        {
+
+            ++myPresses;
+            System.out.println(
+                "Mouse press " + myPresses + " at (" + event.getX() + ", " + event.getY() + ")"
+                );
+            
+            setCurrentSquare(findSquareContainingPoint(event.getPoint()));
+            
+            //if getClickCount==1 and there is no current square, that means no square existed there before, so existingSquare is set false
+            if (event.getClickCount() == 1 && currentSquare() == null){
+                existingSquare = false;
+            }
+            //if it's the first click with currentSquare already present, that means there was an existing square, so existingSquare is set True 
+            else if (event.getClickCount() == 1) {
+                existingSquare = true;
+            }
+
+            if (currentSquare() == null)
+                placeAdditionalSquare(event.getPoint()); 
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent event)
+        {
+
+            ++ myClicks;
+            if (event.getClickCount() < 2)
+                System.out.println(
+                    "Mouse click " + myClicks + " at (" + event.getX() + ", " + event.getY() + ")"
+                    );
+            else
+                System.out.println(
+                    "Mouse double-click " + myClicks + " at (" + event.getX() + ", " + event.getY() + ")"
+                    );
+            setCurrentSquare(findSquareContainingPoint(event.getPoint()));
+            // setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+            //if there is a current square then we set the cursor to cross-cursor.
+             if (currentSquare() != null){
+                    setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                //we further check if the existingsquare boolean is false and event_counter is always a multiple of 3, if it is, then we remove the square because when 
+                //there is no square, 1 click adds square, 2 click does nothing, 3 removes the square and so on. 
+                 if (!existingSquare && event.getClickCount() % 3 == 0 ){
+                    removeExistingSquare(currentSquare());
+                    //after removing square, we check if there is another existing square below it, if so we change the cursor to crosshair-cursor, else the default cursor
+                    if (currentSquare() != null)
+                       setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                    else
+                       setCursor(Cursor.getDefaultCursor());
+
+             }  
+             //if there is already an existingsquare as checked by our boolean field, then we click twice to remove it, so we check if the clickcount mod 3 is 2, then we remove the square
+                 if (existingSquare && event.getClickCount() % 3 == 2 ){
+                    setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                    removeExistingSquare(currentSquare());
+                    //after removing square, we check if there is another existing square below it, if so we change the cursor to crosshair-cursor, else the default cursor
+                    if (currentSquare() != null)
+                       setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                    else
+                       setCursor(Cursor.getDefaultCursor());
+
+             }
+
+         }
+        }
+    }
+
+    private class MouseMotionHandler implements MouseMotionListener
+    {
+
+        int myMoves = 0;
+        int myDrags = 0;
+
+        @Override
+        public void mouseMoved(MouseEvent event)
+        {
+
+            ++ myMoves;
+            System.out.println(
+                "Mouse move " + myMoves + " to (" + event.getX() + ", " + event.getY() + ")"
+                );
+
+            if (findSquareContainingPoint(event.getPoint()) == null)
+                setCursor(Cursor.getDefaultCursor());
+            else
+                setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+
+            }
+
+        @Override
+        public void mouseDragged(MouseEvent event)
+        {
+
+            ++ myDrags;
+            System.out.println(
+                "Mouse drag " + myDrags + " to (" + event.getX() + ", " + event.getY() + ")"
+                );
+
+            if (currentSquare() != null) {
+                //while dragging we check if there is an existing square, if yes we change the cursor to crosshair, then we remove that square for arraylist squares and add the same square again
+                //in the initial position, because the dragged square becomes our current square. So, when we double click to remove it, we can find it in the beginning of the arraylist 
+                 setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                 squares().remove(currentSquare());
+                 repaint();
+                 setCurrentSquare(
+                     new Rectangle2D.Double(
+                         event.getX() - OUR_SQUARE_SIDE_LENGTH / 2,
+                         event.getY() - OUR_SQUARE_SIDE_LENGTH / 2,
+                         OUR_SQUARE_SIDE_LENGTH,
+                         OUR_SQUARE_SIDE_LENGTH
+                     )
+                 );
+
+                 squares().add(0,currentSquare());
+
+                 repaint();
+
+
+                currentSquare().setFrame(
+                    event.getX() - OUR_SQUARE_SIDE_LENGTH / 2,
+                    event.getY() - OUR_SQUARE_SIDE_LENGTH / 2,
+                    OUR_SQUARE_SIDE_LENGTH,
+                    OUR_SQUARE_SIDE_LENGTH
+                    );
+
+                repaint();
+
+                }
+
+            }
+        }
+}

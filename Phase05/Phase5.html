@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-11-09 Tue 14:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Group 1: Phase 5</title>
+<meta name="author" content="Adam Mertzenich" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Group 1: Phase 5</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4e90598">1. Repository Information</a></li>
+<li><a href="#org0b5e498">2. GUI Explanation Image</a></li>
+<li><a href="#orgdaf1af2">3. Progress Report</a>
+<ul>
+<li><a href="#org4664f64">3.1. Changes Made</a></li>
+<li><a href="#org8428058">3.2. Issues Encountered</a></li>
+<li><a href="#org6fe7030">3.3. Changes to Make</a></li>
+<li><a href="#orgd64f8e9">3.4. Work Log</a>
+<ul>
+<li><a href="#orgb570fdb">3.4.1. Michael Musa</a></li>
+<li><a href="#orgab55a91">3.4.2. Adam Mertzenich</a></li>
+<li><a href="#orgfaabc97">3.4.3. Kritib Bhattarai</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4e90598" class="outline-2">
+<h2 id="org4e90598"><span class="section-number-2">1.</span> Repository Information</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Below you will find our repository URL, hosted on GitHub, as well as the revision number and date of our final commit for this phase of the project.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">URL</td>
+<td class="org-left"><a href="https://github.com/mertad01/vm252-project">https://github.com/mertad01/vm252-project</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Revision</td>
+<td class="org-left">TK</td>
+</tr>
+
+<tr>
+<td class="org-left">Date</td>
+<td class="org-left">TK</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org0b5e498" class="outline-2">
+<h2 id="org0b5e498"><span class="section-number-2">2.</span> GUI Explanation Image</h2>
+<div class="outline-text-2" id="text-2">
+
+<div id="org18e8933" class="figure">
+<p><img src="./annotated-screenshot.png" alt="annotated-screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdaf1af2" class="outline-2">
+<h2 id="orgdaf1af2"><span class="section-number-2">3.</span> Progress Report</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+During our designing of the application in Java Swing a few design issues were made clear. Different aspects of our design have been tweaked to embrace the graphical user interface design. Below we cover the changes we have made, issues encountered in making those changes, and our plans for the future to improve our design. Our work is contained in the &ldquo;edu.luther.cs252.group1&rdquo; package. <code>Main.java</code> will launch the application. Within the &ldquo;model&rdquo; package we have a semi-working skeleton of the model we will use, which implements Observable. Our program frame, views, and controllers are in the viewcontroller directory and are all implementing Observer so that they will be able to react to changes in the model once we integrate it.
+</p>
+</div>
+
+<div id="outline-container-org4664f64" class="outline-3">
+<h3 id="org4664f64"><span class="section-number-3">3.1.</span> Changes Made</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+In phase04 our Accumulator and Program Counter did not have explicit text fields where they could be viewed and or edited. In the implementation of our design we added these text fields on the right hand side (same location as our design). This lets us remove the <code>aa</code> and <code>ap</code> commands from the menu since the text fields will perform those actions.
+</p>
+
+<p>
+We also began testing how we will show our data in the center, which in turn let us remove the <code>mb</code> and <code>ob</code> commands which are fulfilled by our graphical representation of the model. Currently we have it set up with a JTable which holds memory values represented as hex (using placeholder data for this stage of the project, later it will be generated from the model).
+</p>
+
+<p>
+During development of our initial graphical application we also found a way we can remove an explicit <code>h</code> help command and instead have each element explain itself. We have added tool-tips using the setToolTipText() method which is available to components. This lets the user hover over each element on the screen to get vital information to how they can use the program. We believe that this is a more elegant way of explaining each feature of the debugger rather than displaying a dialog box containing a list of explanations.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8428058" class="outline-3">
+<h3 id="org8428058"><span class="section-number-3">3.2.</span> Issues Encountered</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A few issues have been encountered and will need to be changed in the future (see the &ldquo;changes to make&rdquo; section below). One of these was what way we are going to display the program memory. Using a JTable seems like a good path forward but it will come with a few issues that must be solved. First, we will want a better way of adding break points. Currently our design would, when the model is integrated, allow you to click a cell and add a breakpoint by clicking a button. This causes the problem of being able to visually tell the user where breakpoints are. In the future we might try to add a checkbox as well as the input field to each cell of the table so that users can toggle on and off breakpoints at certain memory addresses.
+</p>
+
+<p>
+Displaying the current memory instruction using the tables was also an issue we encountered. We opted to use brackets, such as [f0], around the memory instruction to indicate it to be the current instruction. This represents highlighting which we were not yet able to get working. It seems that in order to change the highlighting of individual cells will require overriding some methods relating to cell rendering which will take some investigation. Because of this we will also reconsider using different components to build our memory as a solution to the problem.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6fe7030" class="outline-3">
+<h3 id="org6fe7030"><span class="section-number-3">3.3.</span> Changes to Make</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+There are not many large changes that need to be made with the user interface as of now. One item we would like to change is to use icons for the next, run, pause, and stop buttons (which we had in our phase04 design). We also plan on switching to a different method of adding break points by using check boxes or switching from a JTable to some different set of components to represent the data (as discussed in the &ldquo;issues encountered&rdquo; section above). Going forward we also will better integrate our model into the interface as it is developed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd64f8e9" class="outline-3">
+<h3 id="orgd64f8e9"><span class="section-number-3">3.4.</span> Work Log</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-orgb570fdb" class="outline-4">
+<h4 id="orgb570fdb"><span class="section-number-4">3.4.1.</span> Michael Musa</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Hours Worked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">11/05/21</td>
+<td class="org-left">03:00pm-05:30pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/07/21</td>
+<td class="org-left">07:00pm-08:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/08/21</td>
+<td class="org-left">02:00pm-02:30pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/09/21</td>
+<td class="org-left">11:10am-12:42pm</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Total:</td>
+<td class="org-left">~6 Hours</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgab55a91" class="outline-4">
+<h4 id="orgab55a91"><span class="section-number-4">3.4.2.</span> Adam Mertzenich</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Hours Worked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">11/05/21</td>
+<td class="org-left">05:00pm-07:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/07/21</td>
+<td class="org-left">06:00pm-08:30pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/07/21</td>
+<td class="org-left">04:00pm-08:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/09/21</td>
+<td class="org-left">06:30am-07:30am</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Total:</td>
+<td class="org-left">~9 Hours</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgfaabc97" class="outline-4">
+<h4 id="orgfaabc97"><span class="section-number-4">3.4.3.</span> Kritib Bhattarai</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Hours Worked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">11/04/21</td>
+<td class="org-left">12:00pm-01:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/06/21</td>
+<td class="org-left">05:00pm-06:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/07/21</td>
+<td class="org-left">12:00pm-01:00pm</td>
+</tr>
+
+<tr>
+<td class="org-left">11/09/21</td>
+<td class="org-left">09:30pm-10:00pm</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Total:</td>
+<td class="org-left">~4 Hours</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Adam Mertzenich</p>
+<p class="date">Created: 2021-11-09 Tue 14:38</p>
+</div>
+</body>
+</html>

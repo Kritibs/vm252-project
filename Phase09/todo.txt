@@ -1,0 +1,6 @@
+"Especially Desired" Features:
+- ~bl~ command (set a breakpoint at source-line number)
+- ~oi/mi~ command (display the portion of machine memory holding object code as instructions, data, and labels)
+
+Extra:
+- amd MA SD ⇒ Alter contents of the two-byte pair at MA to signed integer value SD

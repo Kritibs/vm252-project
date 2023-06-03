@@ -1,0 +1,51 @@
+#+TITLE: Group 1: Phase 8
+
+* Repository Information
+
+Below you will find our repository URL, hosted on GitHub, as well as the revision number and date of our final commit for this phase of the project.
+
+| URL      | https://github.com/mertad01/vm252-project |
+| Revision | 13bb2ed04dcee7a9634da5a2a68afc682885c206  |
+| Date     | 2021-12-02T00:34:54Z                      |
+
+* Progress Report
+
+We used the thanksgiving break to primarily focus on cleanup, completing some command implementations, and implementing breakpoints.
+
+Completing the requirements, we now display the current program counter as a highlighted yellow cell in the table. This way you can always visually see where you are at. This required overriding the ~getTableCellRendererComponent~ method of our table cell renderer to check if a cell matches the program counter. We also display a cell as red if it has a breakpoint.
+
+Creating breakpoints was fairly simple. We added an array to our VirtualMachine252 which matches the size of the memory, called ~breakpoints~. Then when the ~programCounter~ hits a cell with the same index as a ~true~ breakpoint in the array it stops. A flag is used to allow the next attempt at running an instruction to go past the breakpoint.
+
+Some difficulties faced were related to the breakpoints. Currently we have users create breakpoints using a numeric input, but this is not ideal. We need to find a way to add breakpoints to a selected cell instead of manually entering. We don't yet have a solution but we plan on trying to find a way to have a button interact with the cell renderer in some way to be able to add a breakpoint.
+
+
+
+* Work Log
+** Michael Musa
+| Date   | Hours Worked  |
+|--------+---------------|
+|11/29/21|01:30pm-04:00pm|
+|11/30/21|10:30pm-11:30pm|
+|--------+---------------|
+| Total: |3.5 hours      |
+
+** Adam Mertzenich
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 11/29/21 | 12:00pm-03:00pm |
+| 11/30/21 | 07:00pm-08:00pm |
+| 12/01/21 | 05:30pm-06:30pm |
+|----------+-----------------|
+| Total:   | ~5              |
+
+** Kritib Bhattarai
+| Date   | Hours Worked |
+|--------+--------------|
+|11/29/21|2pm-4pm       |
+|11/30/21|10am-1pm      |
+|        |              |
+|        |              |
+|        |              |
+|        |              |
+|--------+--------------|
+| Total: |5 hours       |

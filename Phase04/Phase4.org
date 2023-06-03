@@ -1,0 +1,176 @@
+#+TITLE: Group 1: Phase 4
+#+AUTHOR: Adam Mertzenich, Kritib Bhattarai, Michael Musa
+#+DATE: November 3, 2021
+#+OPTIONS: html-postamble:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+
+* Assignment Details
+
+- Course: ~CS252 Object-Oriented Programing with Java (Zaring)~
+- Semester:  ~Fall 2021~
+- Project: ~Phase 4~
+- Due: ~5:00PM on Wednesday, November 3~
+
+** Description
+
+The overall project is to develop a GUI application that provides as many of the capabilities of the ~VM252dbg~ debugger as possible. At a _minimum_, your final version must provide the capabilities provided by the ~aa~, ~ap~, ~amb~, ~ba~, ~h~, ~mb~, ~n~, ~ob~, ~q~, ~r~, ~s~, and ~z~ commands along with the capability of loading an object file for execution.
+
+- Capabilities must be provided in a GUI fashion wherever possible.
+  A) Providing little or nothing more than an application that has a single text field that lets users type in commands as text and has a single text area that lets users see the results of the commands as text _is completely unacceptable and will result in a project score of zero_.
+  B) Providing little or nothing more than an application that has a single panel of buttons (one per command), has a single text field that lets users enter command parameters, and has a single text area that lets users see the results of the commands as text _will result in only a minimal project score_.
+- Some capabilities will be provided simply by the GUI nature of your application. For example, providing views of the current contents of the accumulator, program counter, and memory as part of the basic appearance of the application provides the capabilities of the ~s~ and ~mb~ commands without requiring a dedicated button, menu item, or similar.
+
+_Additionally providing the capabilities of the ~bl~, ~mi~, and ~oi~ commands is especially desirable_.
+
+The capabilities of the ~r~ command require special mention. When running a program, your application
+- Must make it possible to pause and resume the execution of the program without having to terminate the application
+- Must keep views of the simulated machine up to date at all times, including any/all views of the contents of the accumulator, program counter, and memory bytes
+- Should visually highlight the memory byte(s) holding the instruction currently being executed (in a manner similar to the way that, say, Wing 101 and NetBeans highlight lines of code when you run code under the control of their debuggers)
+- Should permit increasing and decreasing the rate at which instructions are executed (e.g., slow the rate of execution down so that the user can watch the program in action without having to single-step through the program)
+
+Add additional features as you see fit and have time: sounds, graphics, user-controlled preferences, etc.
+
+You are free to interpret the above requirements as you will, with the understanding that you need to strike a balance between what is achievable given the time and resources available and what is satisfying and impressive. A working, more-fully-featured application is preferable to a working, minimal application. A working, more-minimal application is preferable to a non-functional, more-fully-featured application.
+
+_Borrowing code from open-source applications of a related nature is utterly, completely, and strictly forbidden, even if you "just want to get some ideas"_. Your job is to create your own application, not to borrow/steal/glue together application code other people have designed and written.
+
+** What to Hand In
+
+Each group must hand in a single PDF of a professional-quality document containing:
+1. Your first thoughts about how you interpret and plan to meet the minimal requirements
+2. Your first thoughts concerning how/if you might go beyond the minimal requirements
+3. A mock-up of how you hope your application will look visually – This could be a graphically-rendered diagram or a scanned, carefully-hand-drawn image.
+4. Your first thoughts about how responsibilities will be divided among the members of the group in an equitable manner
+5. Your selection of your group’s primary contact person, the person I’ll contact when I need to ask questions
+
+* Assignment Plan
+:PROPERTIES:
+:CUSTOM_ID: assignment-plan
+:END:
+
+** Plan to Meet Minimal Requirements
+:PROPERTIES:
+:CUSTOM_ID: minimal-requirements
+:END:
+
+In order to implement the minimally required commands we will make use of different design patterns. Below we describe a basic overview of how we will use the Model-View-Controller and Observer design patterns to allow different aspects of the application to work together towards our goal. We will start by designing our model so that all of the minimally required commands are able to be used and will then move forward to adding graphical views and controllers for the model which acts independently. This gives us a clear plan for moving forward by first implementing the basic commands in the underlying model before moving on to creating the graphical interface.
+
+*** Minimally Required Commands
+:PROPERTIES:
+:CUSTOM_ID: required-commands
+:END:
+
+These are the minimal set of commands which need to be implemented for the project. Getting these working in our [[#model][model]] will be the primary task during the beginning of the development process. Our plan for [[#implementation-plan][implementing]] these commands and how we will [[#labor-division][divide the work]] between our group is provided below.
+
+- ~aa~ ~IV~ \Rightarrow Alter contents of accumulator to ~IV~
+- ~ap~ ~MA~ \Rightarrow Alter contents of program counter to ~MA~
+- ~amb~ ~MA~ ~HB~ \Rightarrow Alter contents of the byte at ~MA~ to unsigned hex value ~HB~
+- ~ba~ ~MA~ \Rightarrow Set a breakpoint at address ~MA~
+- ~h~ \Rightarrow Print this help message
+- ~mb~ \Rightarrow Display all of machine memory as bytes in hex
+- ~n~ \Rightarrow Execute next machine instruction
+- ~ob~ \Rightarrow Display the portion of machine memory holding object code as bytes in hex
+- ~q~ \Rightarrow Quit
+- ~r~ \Rightarrow Run machine until error occurs or stop instruction is executed
+- ~s~ \Rightarrow Display machine state (accumulator, program counter, etc.)
+- ~z~ \Rightarrow Reinitialize program counter to zero
+
+*** Implementation Plan
+:PROPERTIES:
+:CUSTOM_ID: implementation-plan
+:END:
+
+
+**** Model
+:PROPERTIES:
+:CUSTOM_ID: model
+:END:
+
+
+In this project the model is/are the class(s) which represent a VM252 program. We have already implemented ~encodedInstructionBytes~, ~decodedInstructionComponents~, and ~runProgram~ methods as a starting point. These methods will be expanded or added upon in order to increase the model's functionality. Each command which we implement shall likely be a separate method to allow the [[#view][view]] and [[#controller][controller]] to interact with the model in an orderly fashion.
+
+The model will be an ~Observable~ class(s) which will allow it to be watched by the [[#view][view]] and or [[#controller][controller]] respectively.
+
+**** View
+:PROPERTIES:
+:CUSTOM_ID: view
+:END:
+
+The view is principally an ~Observer~ of the model. The aesthetic design of the view can be developed independently from the model which will be supplied as it's developed. We will be making sure that the view is notified of all relevant changes to the model so that it is sure to be always up-to-date.
+
+For specific view design plans, see the preliminary [[#graphical-mockup][graphical mock-up]].
+
+**** Controller
+:PROPERTIES:
+:CUSTOM_ID: controller
+:END:
+
+The controller will also be an ~Observer~ of the model. Because the controller is intimately connected with the implementation of the model it cannot be implemented beyond aesthetic considerations until the model is complete. Focusing on completing the model will thus be the primary goal when starting out. Once the debugging process has been implemented then the controller will be developed.
+
+For specific controller design plans, see the preliminary [[#graphical-mockup][graphical mock-up]].
+
+** Going Beyond the Minimal Requirements
+:PROPERTIES:
+:CUSTOM_ID: extra-features
+:END:
+
+Implementing the minimal requirements will be our first and primary goal. We hope to be able to implement many/most of these other commands but making sure that our graphical design and model functionality are smooth is the primary goal. With that in mind, we have made some considerations in regard to the other commands. We will keep in mind these commands when designing exactly how our model works so that minimal code rewriting will be necessary. For example, when designing the ~mb~ command we will write it so that it can be easily extended/modified to implement the ~md~ command. The best way of doing this will be to utilize the extensibility of classes so that to add additional features will would only need to extend/implement previous classes or interfaces.
+
+*** Other Commands
+:PROPERTIES:
+:CUSTOM_ID: extra-commands
+:END:
+
+These are the other commands which we may implement following the minimal commands. Many of them are able to be created by simply extending previous commands.
+
+- ~amd~ ~MA~ ~SD~ \Rightarrow Alter contents of the two-byte pair at ~MA~ to signed integer value ~SD~
+- ~amdx~ ~MA~ ~HD~ \Rightarrow Alter contents of the two-byte pair at ~MA~ to unsigned hex value ~HD~
+- ~bl~ ~L~ \Rightarrow Set a breakpoint at source-line ~L~
+- ~cb~ \Rightarrow Clear all breakpoints
+- ~md~ \Rightarrow Display all of machine memory as 2-byte data in hex
+- ~mi~ \Rightarrow Display all of machine memory as instructions, data, and labels
+- ~od~ \Rightarrow Display the portion of machine memory holding object code as 2-byte data in hex
+- ~oi~ \Rightarrow Display the portion of machine memory holding object code as instructions, data, and labels
+- ~t~ \Rightarrow Toggle instruction tracing
+
+** Graphical Mock-up
+:PROPERTIES:
+:CUSTOM_ID: graphical-mockup
+:END:
+
+[[./mockup.png]]
+
+** Division of Labor
+:PROPERTIES:
+:CUSTOM_ID: labor-division
+:END:
+
+In order to divide the work on the project fairly we have split up various tasks so we are able to work individually before combining our work. First we have split up various minimally required and extra commands to each member of the group. Once we implement those aspects of the model we will then divide the work of creating the view and controller by having us work on the portions relevant to the parts of the model we developed. When necessary two, or all three, members of the group will work on implementations when there is overlap. Below we have a /general/ outline of which commands we currently plan on each implementing, with the acknowledgement that some of this will change as we figure out the finer details.
+
+1. Kritib Bhattarai
+   - ~ob~
+   - ~r~
+   - ~q~
+   - ~s~
+   - ~c~
+2. Michael Musa
+   - ~ba~
+   - ~h~
+   - ~mb~
+   - ~n~
+   - ~bl~
+   - ~cb~
+3. Adam Mertzenich
+   - ~aa~
+   - ~ap~
+   - ~z~
+   - ~amb~
+   - ~amd~
+   - ~amdx~
+
+** Primary Point of Contact
+:PROPERTIES:
+:CUSTOM_ID: contact
+:END:
+
+Adam Mertzenich will be the primary point of contact for our group. You can email him at [[mailto:mertad01@luther.edu][mertad01@luther.edu]] to ask questions.

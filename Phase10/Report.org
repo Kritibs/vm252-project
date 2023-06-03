@@ -1,0 +1,182 @@
+#+TITLE: Group 1: Final Project Report
+#+SUBTITLE: VM252 Debugger Usage, Features, and Implementation
+#+AUTHOR: Adam Mertzenich, Kritib Bhattarai, Michael Musa
+#+EMAIL: mertad01@luther.edu, bhatkr01@luther.edu, musami01@luther.edu
+#+DATE: Tuesday, December 14th, 2021
+#+DESCRIPTION: Final report explaining the usage, features, and implementation details of group one's VM252 debugger implementation.
+#+LANGUAGE: en
+#+OPTIONS: toc:nil
+
+* Repository Information
+Below you will find our repository URL, hosted on GitHub, as well as the revision number and date of our final commit for this phase of the project.
+
+| URL      | https://github.com/mertad01/vm252-project |
+| Revision | e9f6c36fe78a3ac8f976070a02ed1d4b8a3184ce  |
+| Date     | 2021-12-13T20:00:02-06:00                 |
+
+* Application Usage
+#+begin_comment
+How-to-use-it instructions for your application, ideally with annotated diagrams/pictures (a video demonstration is not acceptable)
+#+end_comment
+
+In order to use the application you will need to compile the Main.java file. This can be done using the following commands in the root project directory:
+#+begin_src shell
+javac edu/luther/cs252/group1/Main.java
+java edu.luther.cs252.group1.Main
+#+end_src
+Alternatively, you can download the precompiled java jar file from GitHub and run it using =java -jar vm252-project.jar=.
+
+After launching the application you can start using it. First, use the file+open menu and select a valid VM252 object file. In this document we will be using a simple multiplication program. You can verify that the object file has been loaded by seeing that the object file location has been loaded in the menu bar and that the memory table has values in the cells. The current program counter will be rendered as the yellow text in the cell.
+
+[[./1.png]]
+
+Running the program to completion can be done by selecting the "Run" menu near the top right of the screen and then pressing the "Run" button within. You can also add a delay in milliseconds in the input box to the right of the "Run" menu and use the "Run", "Start", and "Pause" buttons to slowly step through the program. Alternatively, you can manually click "Execute Next" on the left hand side of the screen to run one instruction at a time. If you need to reset the program counter and accumulator use the "Z" button in the top right of the window's menu bar. You can also change the program counter and accumulator using the related input boxes on the right side panel by entering a number and pressing enter.
+
+[[./2.png]]
+
+Breakpoints will result in the program being paused if it's running and notify you with a popup, or just a popup if you are manually executing each instruction. You can toggle breakpoints at a memory address by right clicking a cell of the memory table and they will change to be TK.color.color. Alternatively you can add breakpoints by inputting the source-line number relating to an instruction in the "Breakpoint Line #" input box on the top left of the left side panel. Below you will find a "Clear Breakpoints" button to disable all breakpoints.
+
+[[./3.png]]
+
+There are two different views of the memory, the single-byte hex representation and the double-byte hex representation. In the single-byte hex view you see each cell representing a byte of memory, the two-byte hex view displays two bytes in each cell. You can double click a cell and enter a new value to change the memory (0-FF for single-byte, 0-FFFF for double-byte). Both tables will automatically be updated to represent changes in the memory model. You can see the next instruction to be executed in the bottom panel of the screen as well as the currently selected memory address location.
+
+[[./4.png]]
+
+[[./5.png]]
+
+
+* Minimum Requirements
+#+begin_comment
+A description of how the minimum requirements for the assignment have been met or not met (i.e., the capabilities of the aa, ap, amb, ba, h, mb, n, ob, q, r, s, and z commands along with the capability of loading an object file for execution have been provided), with particular mention of all the aspects of the r command (see lines 40-52 of the Phase 4 handout)
+#+end_comment
+
+
+Getting help is done by hovering over components and reading the tool-tip or reading the popup boxes supplied with the menu bar's "Help" section (=h=). You can quit the application by just closing the window (=q=).
+
+We have met all of the minimally required commands. Altering the accumulator and program counter for the =aa= and =ap= commands can be done using the input boxes on the right side ProgramStatePanel. This also covers the displaying of the program counter and accumulator which is part of the =s= command, the rest of the =s= command is fulfilled with the "Next Instruction" label on the bottom of the screen (instruction tracing =t= is also completed simultaneously).
+
+The contents of the machine's memory and the portions containing object code are displayed in our MemoryTable in the center (=ob= and =mb=). Altering the memory is done by editing the cells of the table with a new unsigned hex value (=amb=).
+
+Breakpoints can be added by right clicking on a cell of the table, changing the text color as an indicator (=ba=). Breakpoints will be triggered when running instructions using the "Execute Next" button on the left side button panel or using the "Run" menu items (=n=). When done executing a program you can reinitialize the program counter and accumulator using the "Z" button in the top menu (=z=).
+
+Our "Run" menu and the related delay input box fulfill the =r= command requirements. Without any delay entered you can select "Run" from the menu to execute the entire program. Alternatively, you can set a delay value in milliseconds in the input box and when you run it will slowly step through the program, with the ability to "Pause" and "Start" again. All views are automatically updated.
+
+* Beyond the Minimum
+#+begin_comment
+Mention of any of any capabilities above the minimum requirements that have been provided (e.g., the capabilities of the bl, mi, and oi commands)
+#+end_comment
+
+
+Our VM252 application fulfills the majority of the "extra" commands, going beyond the minimally required commands. You may use the "Breakpoint Line #" input box on the left side panel to enter a source line number to add a breakpoint and can click the "Clear Breaks" button below it to clear all breakpoints (=bl= and =cb=).
+
+Using the "Double-Byte Hex" tab in the top center of the memory view you can choose to view the machine memory and object code as 2-byte hex data (=od= and =md=). You can edit these cells to new unsigned hex values for the =amdx= command functionality.
+
+* Roles and Contributions
+
+#+begin_comment
+A description of the roles and contributions of each of the members of the group over the lifetime of the project.
+#+end_comment
+
+Below you will you find general information about each member of the group and their contributions. It should be noted that these are *general* and not exclusive. We met multiple times throughout the semester and worked across categories even if there were trends to certain focus areas in the development process.
+
+** Michael
+
+Michael primarily focused on the front-end graphical design of the application. Almost all of the initial graphical layouts were initially implemented by Michael and then later fleshed out by the entire group. Working on how the design interacted with the model, specifically colors and design considerations, were also a primary focus.
+
+** Adam
+
+Adam focused mainly on handling class hierarchy and implementing cell renderers and models. He made sure that the tables were always up-to-date and wrote helper methods for handling hex input. Adam was also in charge of submitting assignments and writing reports in an orderly fashion.
+
+** Kritib
+
+Kritib's focus during the lifetime of the project was on methods relating to running the application, such as the next instruction execution, running the application, and adding delays. Kritib offered testing time and added checks for various exceptions (especially relating to running the program).
+
+* Libraries Used
+#+begin_comment
+A list of which standard or third-party libraries the application uses, with an explanation of the purpose of third-party libraries
+#+end_comment
+
+Java's Swing and the associated Abstract Window Toolkit graphical user interface libraries were the primary library for our application. This is what we used to create the entire user interface and all of the sub-components. Nothing outside of the Java Standard Library was used to prevent any unneccesary complication.
+
+* Class Relationship Family-Tree Diagram
+#+begin_comment
+A family-tree diagram of the class relationships of the classes the group defined for its code
+#+end_comment
+
+[[./ClassHierarchy.png]]
+
+* Design Patterns
+#+begin_comment
+A discussion of how and where any design patterns and idioms (especially Model-View-Controller) are reflected in the application’s design
+#+end_comment
+
+[[./MVC-OBS.png]]
+
+We heavily rely upon both the Observer-Observed and the Model-View-Controller design patterns (hierarchy image at the bottom of this section). As an overview, we used implementations of BasicObserver to watch for changes on our VirtualMachine252 model (BasicObservable). Every relevant change in the model would notify everyone watching it. Our classes are held within packages representing observation, models, and views/controllers.
+
+Our views and controllers were often times combined thanks to the dynamic nature of many Java Swing components and tools at our disposal (contained within our modelview package). Our model, the VirtualMachine252 class, was where all operations on the memory are done through various accessor and mutator methods. At the end of every method that caused changes to the program state the announceChange() method is called to keep every view up to date.
+
+The ProgramStatePanel contains program counter and accumulator input boxes. These serve as both views and controllers. Editing the text of an input box and pressing enter will modify the modify and in turn update the MemoryTable (and other related views). Conversely, when running the program the state panel would also be updated as it views the new memory state. The aforementioned MemoryTable is our primary view and controller since it allows you to access and edit the memory, dynamically updating the "Next Instruction" indicator among others.
+
+The MemoryTable has both a MemoryTableCellRenderer and a MemoryTableModel, each with seperate implementations for the single and two byte views/controllers. These renderers and models are the principal way memory is viewed and controlled in the VirtualMachine252 model (implementation details in the Original Coding section). These classes allow the tables to view and control the memory similar to how a spreadsheet would work, using the VirtualMachine252 memory as the model behind the scenes.
+
+* Original Coding
+#+begin_comment
+Any other original coding in the application not related to assembling components for and interfacing with the GUI
+#+end_comment
+
+The bulk of the original coding in our application belongs to the "Run" menu bar item and both of the table cell renderers and table models (SingleByte and DoubleByte). Utilizing the components such as JTable and by extending the default renderers allowed us to substantially lower the amount of code we otherwise would have needed to add to get our program operational.
+
+First we will discuss our abstract MemoryTableModel class and it's children, Two/SingleByteHexTableModel. The abstract class contains two helper functions. The first is =intToHexString(int originalInteger)= which takes an integer and returns a hex value as a string (used for displaying memory contents in a cell using hex). The other method we have is =hexStringToInteger(string hexString)= which returns an integer value based on a hex string, such as "3D" (used for converting and storing user input in memory). Below you can see the primary relevant portion of the code which adds each element of a string into the result integer.
+
+[[./hexStringToInteger.png]]
+
+This loop uses the formula $16^\(length - location\)$ where the length is the size of the string and the location is the index of the current character. When you iterate over a string adding the result to a variable each time the final value will be the resulting integer (we use the value 16 due to hexadecimal being base 16).
+
+SingleByteHexTableModel and TwoByteHexTableModel both extend the MemoryTableModel and make use of it's methods. Most of the code in these concrete classes is boilerplate because they must implement the AbstractTableModel methods, but the getValueAt and setValueAt methods required original code.
+
+Below we will explain the methods as implemented in the SingleByteHexTableModel. These methods are nearly identical in the TwoByteHexTableModel except for minor changes to use two bytes instead of one, the differences are minimal enough that they do not require focus.
+
+[[./byteGetValueAt.png]]
+
+The logic for getting the value of a cell, at the cross between rowIndex and columnIndex, is surprisingly rudimentary. Using the formula $((rowIndex * columnCount) + columnIndex)$ we can find the location of that cell in memory. We then use the bitwise AND operator with the hex value FF so that the value of memory doesn't appear signed when converted to an integer. The intToHexString method converts the value of memory into a hex string and a simple if statement pads the value so that each cell is always displayed two characters long. If the cell is out of the memory bounds the value is returned as null.
+
+[[./byteSetValueAt.png]]
+
+Setting the value of a cell is essentially the reverse of accessing it. The same formula is used to find the appropriate address in memory for the rowIndex and columnIndex. The dataValue which the user entered in a cell is treated as a string and is converted to an integer using hexStringToInteger. An if statement makes sure that the dataValue is not too large to fit in a single byte of the memory ray, if it's too large it does not modify the memory.
+
+
+* Persistent Information
+#+begin_comment
+How any persistent information (i.e., information that must survive across multiple executions of your application), if any, is handled by your application
+#+end_comment
+
+We chose to not store persistent information for our debugger in favor of getting as many other features implemented with a good quality standard. If we were to store information, such as settings, we would probably use a binary format to store colors, boolean values, etc.
+
+* Work Log
+** Michael Musa
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 12/11/21 | 1pm-5pm      |
+| 12/13/21 | 5pm-8:30pm   |
+| 12/13/21 | 10am-1pm     |
+|----------+-----------------|
+| Total:   | ~10.5hours   |
+
+** Adam Mertzenich
+| Date     | Hours Worked    |
+|----------+-----------------|
+| 12/11/21 | 1pm-5pm      |
+| 12/13/21 | 5pm-8:30pm   |
+| 12/13/21 | 10am-1pm     |
+|----------+-----------------|
+| Total:   | ~10.5hours   |
+
+** Kritib Bhattarai
+| Date     | Hours Worked |
+|----------+--------------|
+| 12/11/21 | 1pm-5pm      |
+| 12/13/21 | 5pm-8:30pm   |
+| 12/13/21 | 10am-1pm     |
+|----------+--------------|
+| Total:   | ~10.5hours   |
